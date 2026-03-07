@@ -1,0 +1,1985 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#fdf4ee" />
+    <title>Tu guía para visitar Santiago</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --rose: #c4677a;
+        --rose-light: #e8a0ad;
+        --rose-soft: rgba(196, 103, 122, 0.1);
+        --rose-border: rgba(196, 103, 122, 0.22);
+        --peach: #f5cbb8;
+        --peach-soft: rgba(245, 203, 184, 0.35);
+        --cream: #fdf4ee;
+        --cream-dark: #f7e8df;
+        --card-bg: rgba(255, 248, 244, 0.82);
+        --text: #3b2228;
+        --text-mid: #7a4f56;
+        --muted: #b08a8f;
+        --border: rgba(196, 140, 130, 0.2);
+        --green: #5a8a6a;
+        --green-soft: rgba(90, 138, 106, 0.12);
+      }
+
+      [data-theme="dark"] {
+        --rose: #e8a0ad;
+        --rose-light: #f0b8c2;
+        --rose-soft: rgba(232, 160, 173, 0.15);
+        --rose-border: rgba(232, 160, 173, 0.35);
+        --peach: #c49a88;
+        --peach-soft: rgba(196, 154, 136, 0.2);
+        --cream: #2d2226;
+        --cream-dark: #3a2d32;
+        --card-bg: rgba(45, 34, 38, 0.9);
+        --text: #f5e6e9;
+        --text-mid: #d4b8bd;
+        --muted: #9a7a80;
+        --border: rgba(180, 140, 145, 0.2);
+        --green: #6ba87a;
+        --green-soft: rgba(107, 168, 122, 0.18);
+      }
+
+      [data-theme="dark"] body {
+        background-color: var(--cream);
+        background-image:
+          radial-gradient(
+            ellipse at 10% 0%,
+            rgba(80, 50, 55, 0.5) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 90% 30%,
+            rgba(120, 60, 70, 0.2) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 100%,
+            rgba(60, 40, 45, 0.4) 0%,
+            transparent 60%
+          );
+      }
+
+      [data-theme="dark"] .header {
+        background: linear-gradient(
+          180deg,
+          rgba(45, 34, 38, 0.97) 70%,
+          transparent 100%
+        );
+      }
+
+      [data-theme="dark"] .tabs {
+        background: rgba(55, 42, 47, 0.8);
+      }
+
+      [data-theme="dark"] .heart-popup {
+        background: #3a2d32;
+      }
+
+      [data-theme="dark"] body::after {
+        opacity: 0.04;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        background-color: var(--cream);
+        background-image:
+          radial-gradient(
+            ellipse at 10% 0%,
+            rgba(245, 203, 184, 0.6) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 90% 30%,
+            rgba(232, 160, 173, 0.25) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 100%,
+            rgba(245, 203, 184, 0.4) 0%,
+            transparent 60%
+          );
+        min-height: 100vh;
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* Soft grain overlay */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        opacity: 0.025;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 180px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .app {
+        max-width: 430px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        padding: 52px 20px 18px;
+        background: linear-gradient(
+          180deg,
+          rgba(253, 244, 238, 0.97) 70%,
+          transparent 100%
+        );
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .header-text h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+        line-height: 1.2;
+        color: var(--text);
+      }
+
+      .header-text h1 span {
+        color: var(--rose);
+      }
+
+      .header-text p {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 3px;
+        font-weight: 300;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+
+      .header-heart {
+        width: 42px;
+        height: 42px;
+        background: var(--rose-soft);
+        border: 1px solid var(--rose-border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          background 0.2s;
+      }
+
+      .header-heart:active {
+        transform: scale(0.88);
+      }
+      .header-heart.beat {
+        animation: heartbeat 0.4s ease;
+      }
+
+      @keyframes heartbeat {
+        0% {
+          transform: scale(1);
+        }
+        30% {
+          transform: scale(1.35);
+        }
+        60% {
+          transform: scale(0.9);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .safety-body {
+        padding: 0 16px 14px;
+        font-size: 12px;
+        color: #92400e;
+        line-height: 1.6;
+        font-weight: 300;
+      }
+
+      /* ── DAY TABS ── */
+      .tabs {
+        display: flex;
+        margin: 16px 16px 0;
+        background: rgba(255, 248, 244, 0.7);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 4px;
+        gap: 4px;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 10px 8px;
+        border-radius: 12px;
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        line-height: 1.3;
+      }
+
+      .tab .tab-emoji {
+        font-size: 16px;
+      }
+      .tab .tab-label {
+        letter-spacing: 0.1px;
+      }
+
+      .tab.active {
+        background: linear-gradient(
+          135deg,
+          rgba(196, 103, 122, 0.13) 0%,
+          rgba(245, 203, 184, 0.2) 100%
+        );
+        border: 1px solid var(--rose-border);
+        color: var(--rose);
+        font-weight: 500;
+      }
+
+      /* ── PROGRESS BAR ── */
+      .progress-wrap {
+        margin: 12px 16px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .progress-bar {
+        flex: 1;
+        min-width: 60px;
+        height: 3px;
+        background: var(--border);
+        border-radius: 99px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--rose), var(--peach));
+        border-radius: 99px;
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .progress-text {
+        font-size: 11px;
+        color: var(--muted);
+        white-space: nowrap;
+        min-width: 48px;
+        text-align: right;
+      }
+
+      /* ── STOPS LIST ── */
+      .stops {
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+        padding-bottom: 100px;
+      }
+
+      /* ── STOP CARD ── */
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 16px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        box-shadow: 0 2px 12px rgba(180, 100, 110, 0.07);
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: cardIn 0.4s ease both;
+        transform-origin: top center;
+      }
+
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card.checked {
+        opacity: 0.5;
+        border-color: rgba(90, 138, 106, 0.2);
+        background: rgba(240, 248, 243, 0.6);
+        box-shadow: none;
+      }
+
+      .card-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      /* Custom checkbox */
+      .check-btn {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        border-radius: 8px;
+        border: 1.5px solid var(--rose-border);
+        background: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 1px;
+        font-size: 13px;
+        color: transparent;
+      }
+
+      .check-btn.done {
+        background: linear-gradient(135deg, #5a8a6a, #3d7057);
+        border-color: #5a8a6a;
+        color: white;
+        animation: checkBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      @keyframes checkBounce {
+        0% {
+          transform: scale(1);
+        }
+        40% {
+          transform: scale(1.3);
+        }
+        70% {
+          transform: scale(0.88);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .card-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .card-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--text);
+        transition: all 0.3s;
+      }
+
+      .card.checked .card-name {
+        text-decoration: line-through;
+        color: var(--muted);
+      }
+
+      .card-tip {
+        font-size: 12px;
+        color: var(--text-mid);
+        margin-top: 4px;
+        line-height: 1.55;
+        font-weight: 300;
+        transition: color 0.3s;
+      }
+
+      .card.checked .card-tip {
+        color: var(--muted);
+      }
+
+      .card-schedule {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 6px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .card-schedule span {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+      }
+
+      .card-schedule .closed-warn {
+        color: #b45339;
+      }
+
+      .card-notes-wrap {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+
+      .card-notes-label {
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+
+      .card-notes-input {
+        width: 100%;
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        color: var(--text-mid);
+        background: var(--cream-dark);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 8px 10px;
+        resize: vertical;
+        min-height: 44px;
+        transition: border-color 0.2s;
+      }
+
+      .card-notes-input::placeholder {
+        color: var(--muted);
+      }
+
+      .card-notes-input:focus {
+        outline: none;
+        border-color: var(--rose-border);
+      }
+
+      .day-tip {
+        margin: 0 16px 12px;
+        padding: 10px 14px;
+        background: var(--peach-soft);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        font-size: 12px;
+        color: var(--text-mid);
+        line-height: 1.5;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .day-tip-icon {
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .before-leaving {
+        margin: 0 16px 14px;
+        padding: 12px 16px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+      }
+
+      .before-leaving-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+
+      .before-leaving-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .before-leaving-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--text-mid);
+        cursor: pointer;
+        padding: 6px 0;
+        border-radius: 8px;
+        transition: background 0.2s;
+      }
+
+      .before-leaving-item:active {
+        background: var(--rose-soft);
+      }
+
+      .before-leaving-item .check-btn {
+        margin-top: 0;
+      }
+
+      .before-leaving-item.checked {
+        color: var(--muted);
+      }
+
+      .before-leaving-item.checked .before-leaving-label {
+        text-decoration: line-through;
+      }
+
+      .reserve-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 5px 10px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--rose), var(--rose-light));
+        border: none;
+        color: white;
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .reserve-btn:active {
+        transform: scale(0.96);
+      }
+
+      .share-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 10px;
+        background: var(--rose-soft);
+        border: 1px solid var(--rose-border);
+        color: var(--rose);
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-left: auto;
+      }
+
+      .share-btn:active {
+        background: var(--rose-border);
+        transform: scale(0.97);
+      }
+
+      .share-toast {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--text);
+        color: var(--cream);
+        padding: 10px 18px;
+        border-radius: 12px;
+        font-size: 12px;
+        z-index: 600;
+        animation: toastIn 0.3s ease both;
+      }
+
+      .share-toast.fade-out {
+        animation: toastOut 0.3s ease forwards;
+      }
+
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      @keyframes toastOut {
+        from {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-6px);
+        }
+      }
+
+      .dark-toggle {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--card-bg);
+        color: var(--text-mid);
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+
+      .dark-toggle:active {
+        transform: scale(0.92);
+      }
+
+      .card-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 12px;
+        gap: 8px;
+      }
+
+      .card-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* Metro line badges */
+      .metro-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 8px;
+        border-radius: 99px;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+      }
+
+      .metro-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.85;
+      }
+
+      .metro-arrow {
+        font-size: 9px;
+        color: var(--muted);
+        margin: 0 -2px;
+      }
+
+      /* Cost badge */
+      .cost-badge {
+        font-size: 11px;
+        color: var(--rose);
+        background: var(--rose-soft);
+        border: 1px solid var(--rose-border);
+        padding: 3px 8px;
+        border-radius: 99px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .free-badge {
+        font-size: 10px;
+        color: var(--green);
+        background: var(--green-soft);
+        border: 1px solid rgba(90, 138, 106, 0.2);
+        padding: 3px 8px;
+        border-radius: 99px;
+      }
+
+      /* Maps button */
+      .maps-btn {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 7px 12px;
+        border-radius: 10px;
+        background: transparent;
+        border: 1px solid var(--rose-border);
+        color: var(--rose);
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .maps-btn:active {
+        background: var(--rose-soft);
+        transform: scale(0.95);
+      }
+
+      /* ── LOVE NOTE ── */
+      .love-note {
+        margin: 16px;
+        padding: 14px 16px;
+        background: linear-gradient(
+          135deg,
+          rgba(245, 203, 184, 0.4) 0%,
+          rgba(232, 160, 173, 0.2) 100%
+        );
+        border: 1px solid rgba(196, 103, 122, 0.18);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: cardIn 0.5s 0.1s ease both;
+      }
+
+      .love-note-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .love-note-text {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 14px;
+        color: var(--rose);
+        line-height: 1.5;
+      }
+
+      /* ── LOLLAPALOOZA ── */
+      .lolla-intro {
+        margin: 0 16px 14px;
+        padding: 14px 16px;
+        background: linear-gradient(
+          135deg,
+          rgba(122, 111, 160, 0.15) 0%,
+          rgba(196, 103, 122, 0.1) 100%
+        );
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        font-size: 13px;
+        color: var(--text-mid);
+        line-height: 1.55;
+      }
+
+      .lolla-section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        margin: 16px 16px 8px;
+      }
+
+      .lolla-day-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 16px;
+        margin: 0 16px 10px;
+        backdrop-filter: blur(8px);
+      }
+
+      .lolla-day-card h4 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 17px;
+        color: var(--rose);
+        margin-bottom: 6px;
+      }
+
+      .lolla-day-card p {
+        font-size: 12px;
+        color: var(--text-mid);
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+
+      .lolla-day-card .lolla-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .lolla-checklist {
+        margin: 0 16px 14px;
+        padding: 12px 16px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+      }
+
+      .lolla-checklist-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+
+      .lolla-checklist-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .lolla-checklist-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--text-mid);
+        cursor: pointer;
+        padding: 6px 0;
+        border-radius: 8px;
+        transition: background 0.2s;
+      }
+
+      .lolla-checklist-item.checked {
+        color: var(--muted);
+      }
+
+      .lolla-checklist-item.checked .lolla-check-label {
+        text-decoration: line-through;
+      }
+
+      .lolla-checklist-item.lolla-custom-item {
+        padding-right: 8px;
+      }
+
+      .lolla-checklist-item.lolla-custom-item .lolla-check-label {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .lolla-item-remove {
+        margin-left: auto;
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .lolla-item-remove:hover,
+      .lolla-item-remove:active {
+        background: var(--rose-soft);
+        color: var(--rose);
+      }
+
+      .lolla-add-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+
+      .lolla-add-input {
+        flex: 1;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        color: var(--text);
+        background: var(--cream-dark);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 8px 12px;
+        min-width: 0;
+      }
+
+      .lolla-add-input::placeholder {
+        color: var(--muted);
+      }
+
+      .lolla-add-input:focus {
+        outline: none;
+        border-color: var(--rose-border);
+      }
+
+      .lolla-add-btn {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--rose);
+        background: var(--rose-soft);
+        border: 1px solid var(--rose-border);
+        border-radius: 10px;
+        padding: 8px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .lolla-add-btn:active {
+        background: var(--rose-border);
+        transform: scale(0.97);
+      }
+
+      .lolla-notes-wrap {
+        margin: 0 16px 16px;
+      }
+
+      .lolla-notes-input {
+        width: 100%;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        color: var(--text-mid);
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        resize: vertical;
+        min-height: 80px;
+        transition: border-color 0.2s;
+      }
+
+      .lolla-notes-input::placeholder {
+        color: var(--muted);
+      }
+
+      .lolla-notes-input:focus {
+        outline: none;
+        border-color: var(--rose-border);
+      }
+
+      /* ── DAY TRANSITION ── */
+      .day-view {
+        animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* ── WALK indicator ── */
+      .walk-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 8px;
+        border-radius: 99px;
+        font-size: 10px;
+        color: #7a6fa0;
+        background: rgba(122, 111, 160, 0.1);
+        border: 1px solid rgba(122, 111, 160, 0.18);
+        white-space: nowrap;
+      }
+
+      /* ── All done banner ── */
+      .all-done {
+        margin: 12px 16px;
+        padding: 14px 18px;
+        background: linear-gradient(
+          135deg,
+          var(--green-soft),
+          rgba(90, 138, 106, 0.06)
+        );
+        border: 1px solid rgba(90, 138, 106, 0.2);
+        border-radius: 16px;
+        text-align: center;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 15px;
+        color: var(--green);
+        display: none;
+        animation: cardIn 0.4s ease both;
+      }
+
+      .all-done.visible {
+        display: block;
+      }
+
+      /* Reset button */
+      .reset-btn {
+        background: none;
+        border: none;
+        color: var(--muted);
+        opacity: 0.45;
+        font-family: "DM Sans", sans-serif;
+        font-size: 10px;
+        cursor: pointer;
+        padding: 4px 8px;
+        transition: opacity 0.2s;
+      }
+      .reset-btn:active {
+        opacity: 0.8;
+      }
+
+      /* Stagger cards */
+      .card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .card:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .card:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .card:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+
+      /* ── EMERGENCY BAR ── */
+      .emergency-bar {
+        margin: 12px 16px 0;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+      .emergency-label {
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 0.3px;
+        font-weight: 300;
+        white-space: nowrap;
+      }
+      .emergency-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 99px;
+        background: rgba(180, 80, 60, 0.07);
+        border: 1px solid rgba(180, 80, 60, 0.18);
+        color: #a0503c;
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+        white-space: nowrap;
+      }
+      .emergency-btn:active {
+        background: rgba(180, 80, 60, 0.14);
+        transform: scale(0.95);
+      }
+
+      /* ── HEART POPUP ── */
+      .heart-popup {
+        position: fixed;
+        top: 72px;
+        right: 16px;
+        max-width: 195px;
+        background: white;
+        border: 1px solid var(--rose-border);
+        border-radius: 16px 16px 4px 16px;
+        padding: 10px 14px;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 14px;
+        color: var(--rose);
+        box-shadow: 0 4px 20px rgba(196, 103, 122, 0.15);
+        z-index: 500;
+        pointer-events: none;
+        animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+      .heart-popup.fade-out {
+        animation: popOut 0.3s ease forwards;
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: scale(0.7) translateY(-6px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      @keyframes popOut {
+        from {
+          opacity: 1;
+          transform: scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: scale(0.85) translateY(-4px);
+        }
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <!-- HEADER -->
+      <header class="header">
+        <div class="header-inner">
+          <div class="header-text">
+            <h1>Tu guía para Santiago 🌸</h1>
+            <p>Espero que te guste</p>
+          </div>
+          <div class="header-actions">
+            <button
+              class="dark-toggle"
+              id="darkToggle"
+              onclick="toggleDark()"
+              aria-label="Modo oscuro"
+              title="Modo oscuro"
+            >
+              🌙
+            </button>
+            <button
+              class="header-heart"
+              id="heartBtn"
+              onclick="beatHeart()"
+              aria-label="Con amor"
+            >
+              💗
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- EMERGENCY BUTTONS -->
+      <div class="emergency-bar">
+        <span class="emergency-label">🆘 Emergencias</span>
+        <a class="emergency-btn" href="tel:133"
+          ><span>🚔</span> Carabineros 133</a
+        >
+        <a class="emergency-btn" href="tel:1405"
+          ><span>🛡️</span> Seg. Providencia 1405</a
+        >
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs" role="tablist">
+        <button class="tab active" id="tab1" onclick="setDay(1)" role="tab">
+          <span class="tab-emoji">🏛️</span>
+          <span class="tab-label">Día 1 · Centro</span>
+        </button>
+        <button class="tab" id="tab2" onclick="setDay(2)" role="tab">
+          <span class="tab-emoji">🌸</span>
+          <span class="tab-label">Día 2 · Providencia</span>
+        </button>
+        <button class="tab" id="tab3" onclick="setDay(3)" role="tab">
+          <span class="tab-emoji">🎵</span>
+          <span class="tab-label">Lollapalooza</span>
+        </button>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-wrap">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <span class="progress-text" id="progressText">0 / 0</span>
+        <button
+          class="share-btn"
+          onclick="shareProgress()"
+          title="Compartir mi día"
+        >
+          📤 Compartir
+        </button>
+        <button
+          class="reset-btn"
+          onclick="confirmReset()"
+          title="Reiniciar progreso"
+        >
+          ↺
+        </button>
+      </div>
+
+      <!-- DAY VIEWS -->
+      <div id="dayContent"></div>
+    </div>
+
+    <script>
+      const TRIP_DATA = {
+        loveNotes: [
+          "Que lo pases bien hoy. Estaré pensando en ti.",
+          "Disfruta el día, te lo mereces.",
+        ],
+        dayTips: [
+          "Santiago en marzo: sol fuerte, lleva bloqueador. Agua y algún snack.",
+          "Providencia es más tranquilo. Ideal llevar abrigo por si hace frío de tarde.",
+        ],
+        days: [
+          {
+            id: 1,
+            title: "Centro Aesthetic & Museos",
+            emoji: "🏛️",
+            stops: [
+              {
+                id: "d1-1",
+                name: "Barrio Victoria",
+                transport: "L2 - Parque O'Higgins",
+                tip: "Taller de zapateros locales. Puedes ver cómo fabrican los zapatos y comprar directo al artesano.",
+                cost: 0,
+                maps: "Barrio Victoria Santiago",
+                bestTime: "10:00–14:00",
+                duration: "~1 h",
+                closed: null,
+              },
+              {
+                id: "d1-2",
+                name: "Quinta Normal",
+                transport: "L2 → L5 (transbordo Santa Ana)",
+                tip: "Museo de Historia Natural: entrada gratis. Hay un esqueleto de ballena real dentro, vale la vuelta.",
+                cost: 0,
+                maps: "Parque Quinta Normal Santiago",
+                bestTime: "10:00–17:00",
+                duration: "~1.5 h",
+                closed: "Lunes cerrado",
+              },
+              {
+                id: "d1-3",
+                name: "Paseo Bandera",
+                transport: "L1 - La Moneda",
+                tip: "Paseo peatonal con murales pintados en el suelo. Buena foto si mirás desde arriba.",
+                cost: 0,
+                maps: "Paseo Bandera Santiago",
+                bestTime: "Cualquier hora",
+                duration: "~30 min",
+                closed: null,
+              },
+              {
+                id: "d1-4",
+                name: "Cerro Santa Lucía",
+                transport: "Caminata desde L1 Baquedano",
+                tip: "Subir cuesta unos 10 minutos. Entrá por el lado de Alameda para ver la fuente primero.",
+                cost: 0,
+                maps: "Cerro Santa Lucía Santiago",
+                bestTime: "9:00–19:00",
+                duration: "~1 h",
+                closed: null,
+              },
+              {
+                id: "d1-5",
+                name: "Wonderland Café",
+                transport: "L1 - Universidad Católica",
+                tip: "Café de temática Alicia en el País de las Maravillas. Reserva recomendada, especialmente fines de semana.",
+                cost: 15900,
+                maps: "Wonderland Cafe Lastarria Santiago",
+                bestTime: "12:00–18:00",
+                duration: "~1 h",
+                closed: null,
+                reserveUrl:
+                  "https://www.covermanager.com/reserve/module_restaurant/Wonderland-Cafe-Santiago-de-Chile/spanish",
+                reserveLabel: "Reservar",
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Providencia Zen & Sky",
+            emoji: "🌸",
+            stops: [
+              {
+                id: "d2-1",
+                name: "Jardín Japonés",
+                transport: "L1 - Pedro de Valdivia",
+                tip: "Jardín japonés en Parque Balmaceda. Tranquilo, bien cuidado, buenas fotos si vas antes del mediodía.",
+                cost: 0,
+                maps: "Jardin Japones Providencia Santiago",
+                bestTime: "9:00–12:00",
+                duration: "~45 min",
+                closed: null,
+              },
+              {
+                id: "d2-2",
+                name: "Paseo La Villa",
+                transport: "Caminata desde L1 Los Leones",
+                tip: "Conjunto de casas de estilo inglés de los años 20. Poco turístico, casi no hay gente.",
+                cost: 0,
+                maps: "Paseo La Villa Providencia Santiago",
+                bestTime: "Cualquier hora",
+                duration: "~40 min",
+                closed: null,
+              },
+              {
+                id: "d2-3",
+                name: "Drugstore",
+                transport: "L1 - Los Leones",
+                tip: "Mall alternativo con locales de diseño chileno, librerías y comida. Dos pisos para recorrer.",
+                cost: 0,
+                maps: "Drugstore Providencia Santiago",
+                bestTime: "11:00–20:00",
+                duration: "~1 h",
+                closed: null,
+              },
+              {
+                id: "d2-4",
+                name: "Sky Costanera",
+                transport: "L1 - Tobalaba",
+                tip: "El atardecer en marzo cae cerca de las 20:00. Comprá la entrada online para evitar fila.",
+                cost: 23000,
+                maps: "Sky Costanera Centro",
+                bestTime: "19:00–20:30 (atardecer)",
+                duration: "~1.5 h",
+                closed: null,
+                reserveUrl: "https://skyweb.cencosud.net/es/",
+                reserveLabel: "Comprar entrada",
+              },
+            ],
+          },
+        ],
+      };
+
+      const BEFORE_LEAVING = [
+        { id: "pre-1", label: "Celular cargado" },
+        { id: "pre-2", label: "Mapa descargado (Google Maps offline)" },
+        { id: "pre-3", label: "Bloqueador solar" },
+        { id: "pre-4", label: "Agua" },
+      ];
+
+      const LOLLA_DATA = {
+        intro:
+          "¡Disfruta el festival! Acá tienes los tips clave para que no te falte nada.",
+        officialUrl: "https://www.lollapaloozacl.com/",
+        days: [
+          {
+            id: "lolla-1",
+            name: "Viernes 13",
+            tip: "Primer día: Ubica los puntos de agua y el escenario principal. ¡Sácate todas las fotos apenas llegues que te vas a ver hermosa!",
+          },
+          {
+            id: "lolla-2",
+            name: "Sábado 14",
+            emoji: "⚡",
+            tip: "Es el día más fuerte: Carga tu pulsera (Cashless) temprano para no perder tiempo en filas de comida.",
+          },
+          {
+            id: "lolla-3",
+            name: "Domingo 15",
+            emoji: "✨",
+            tip: "Último esfuerzo: Aprovecha lo que te haya faltado. Ojo con el sol y guarda energía para la caminata de vuelta.",
+          },
+        ],
+        checklist: [
+          { id: "lolla-c1", label: "Pulsera puesta" },
+          { id: "lolla-c2", label: "Célular al 100% + Powerbank cargado" },
+          { id: "lolla-c3", label: "Bloqueador solar" },
+          { id: "lolla-c5", label: "Botella de agua" },
+          { id: "lolla-c6", label: "Zapatos cómodos" },
+          { id: "lolla-c7", label: "Lentes de sol y un abrigo liviano" },
+        ],
+      };
+
+      // Metro line colors (official Santiago Metro)
+      const METRO_COLORS = {
+        L1: {
+          bg: "rgba(227,6,19,0.15)",
+          color: "#ff4a57",
+          border: "rgba(227,6,19,0.3)",
+        },
+        L2: {
+          bg: "rgba(245,168,0,0.15)",
+          color: "#f5a800",
+          border: "rgba(245,168,0,0.3)",
+        },
+        L3: {
+          bg: "rgba(155,94,39,0.15)",
+          color: "#c47a3b",
+          border: "rgba(155,94,39,0.3)",
+        },
+        L4: {
+          bg: "rgba(0,114,188,0.15)",
+          color: "#4499ee",
+          border: "rgba(0,114,188,0.3)",
+        },
+        L5: {
+          bg: "rgba(0,166,80,0.15)",
+          color: "#2ec872",
+          border: "rgba(0,166,80,0.3)",
+        },
+        L6: {
+          bg: "rgba(108,48,130,0.15)",
+          color: "#a855f7",
+          border: "rgba(108,48,130,0.3)",
+        },
+      };
+
+      // State
+      let activeDay = 1;
+      let checked = {};
+      let notes = {};
+      let beforeLeavingChecked = {};
+      let lollaChecklist = {};
+      let lollaCustomItems = [];
+      let lollaNotes = "";
+      let darkMode = false;
+
+      // Load from localStorage
+      function loadState() {
+        try {
+          const saved = localStorage.getItem("santiago-trip-v2");
+          if (saved) {
+            const data = JSON.parse(saved);
+            checked = data.checked || {};
+            activeDay = data.activeDay || 1;
+            notes = data.notes || {};
+            beforeLeavingChecked = data.beforeLeavingChecked || {};
+            lollaChecklist = data.lollaChecklist || {};
+            lollaCustomItems = data.lollaCustomItems || [];
+            lollaNotes = data.lollaNotes || "";
+          }
+        } catch (e) {}
+        try {
+          darkMode = localStorage.getItem("santiago-trip-dark") === "1";
+        } catch (e) {}
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(
+            "santiago-trip-v2",
+            JSON.stringify({
+              checked,
+              activeDay,
+              notes,
+              beforeLeavingChecked,
+              lollaChecklist,
+              lollaCustomItems,
+              lollaNotes,
+            }),
+          );
+        } catch (e) {}
+        try {
+          localStorage.setItem("santiago-trip-dark", darkMode ? "1" : "0");
+        } catch (e) {}
+      }
+
+      function toggleLollaCheck(id) {
+        lollaChecklist[id] = !lollaChecklist[id];
+        saveState();
+        render();
+      }
+
+      function addLollaItem() {
+        const input = document.getElementById("lollaNewItemInput");
+        if (!input) return;
+        const text = (input.value || "").trim();
+        if (!text) return;
+        lollaCustomItems.push({
+          id: "lolla-custom-" + Date.now(),
+          label: text,
+        });
+        input.value = "";
+        saveState();
+        render();
+      }
+
+      function removeLollaItem(id) {
+        lollaCustomItems = lollaCustomItems.filter((it) => it.id !== id);
+        delete lollaChecklist[id];
+        saveState();
+        render();
+      }
+
+      function saveLollaNotes(value) {
+        lollaNotes = value;
+        saveState();
+      }
+
+      // Debounce: guardar notas mientras escribe (por si cierra sin hacer blur)
+      let _noteDebounce = null;
+      function debouncedSaveNote(stopId, el) {
+        if (_noteDebounce) clearTimeout(_noteDebounce);
+        _noteDebounce = setTimeout(() => {
+          if (el && el.value !== undefined) saveNote(stopId, el.value);
+          _noteDebounce = null;
+        }, 500);
+      }
+      let _lollaNoteDebounce = null;
+      function debouncedSaveLollaNotes(el) {
+        if (_lollaNoteDebounce) clearTimeout(_lollaNoteDebounce);
+        _lollaNoteDebounce = setTimeout(() => {
+          if (el && el.value !== undefined) saveLollaNotes(el.value);
+          _lollaNoteDebounce = null;
+        }, 500);
+      }
+
+      function toggleBeforeLeaving(id) {
+        beforeLeavingChecked[id] = !beforeLeavingChecked[id];
+        saveState();
+        render();
+      }
+
+      function saveNote(stopId, value) {
+        notes[stopId] = value;
+        saveState();
+      }
+
+      function toggleDark() {
+        darkMode = !darkMode;
+        saveState();
+        applyDarkMode();
+        const btn = document.getElementById("darkToggle");
+        if (btn) {
+          btn.textContent = darkMode ? "☀️" : "🌙";
+          btn.setAttribute(
+            "aria-label",
+            darkMode ? "Modo claro" : "Modo oscuro",
+          );
+        }
+      }
+
+      function applyDarkMode() {
+        document.documentElement.setAttribute(
+          "data-theme",
+          darkMode ? "dark" : "",
+        );
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.content = darkMode ? "#2d2226" : "#fdf4ee";
+      }
+
+      function shareProgress() {
+        const day = TRIP_DATA.days.find((d) => d.id === activeDay);
+        if (!day) return;
+        const total = day.stops.length;
+        const done = day.stops.filter((s) => checked[s.id]).length;
+        const text = `Completé ${done}/${total} del Día ${activeDay} en la guía de Santiago 💗`;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => showShareToast());
+        } else {
+          try {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            showShareToast();
+          } catch (e) {}
+        }
+      }
+
+      function showShareToast() {
+        const existing = document.querySelector(".share-toast");
+        if (existing) existing.remove();
+        const el = document.createElement("div");
+        el.className = "share-toast";
+        el.textContent = "¡Copiado! Pegá en WhatsApp o donde quieras.";
+        document.body.appendChild(el);
+        setTimeout(() => {
+          el.classList.add("fade-out");
+          setTimeout(() => el.remove(), 300);
+        }, 2000);
+      }
+
+      // Format CLP
+      function formatCLP(n) {
+        if (n === 0) return "$0";
+        return "$" + n.toLocaleString("es-CL");
+      }
+
+      // Parse metro lines from transport string
+      function parseMetroLines(transport) {
+        const matches = transport.match(/L\d+[A]?/g);
+        return matches || [];
+      }
+
+      function isWalk(transport) {
+        return (
+          transport.toLowerCase().includes("caminata") &&
+          !transport.match(/L\d/)
+        );
+      }
+
+      function renderMetroBadges(transport) {
+        if (isWalk(transport)) {
+          return `<span class="walk-badge">🚶 ${transport}</span>`;
+        }
+        const lines = parseMetroLines(transport);
+        if (lines.length === 0)
+          return `<span class="walk-badge">${transport}</span>`;
+
+        let html = "";
+        lines.forEach((line, i) => {
+          const c = METRO_COLORS[line] || {
+            bg: "rgba(255,255,255,0.1)",
+            color: "#aaa",
+            border: "rgba(255,255,255,0.2)",
+          };
+          if (i > 0) html += `<span class="metro-arrow">→</span>`;
+          html += `<span class="metro-badge" style="background:${c.bg};color:${c.color};border:1px solid ${c.border}">
+      <span class="metro-dot" style="background:${c.color}"></span>${line}
+    </span>`;
+        });
+        return html;
+      }
+
+      function toggleCheck(id) {
+        checked[id] = !checked[id];
+        saveState();
+        render();
+      }
+
+      function setDay(d) {
+        activeDay = d;
+        saveState();
+        render();
+      }
+
+      let heartCooldown = false;
+      function beatHeart() {
+        if (heartCooldown) return;
+        heartCooldown = true;
+        const h = document.getElementById("heartBtn");
+        h.classList.remove("beat");
+        void h.offsetWidth;
+        h.classList.add("beat");
+        showHeartMessage();
+        setTimeout(() => {
+          heartCooldown = false;
+        }, 5000);
+      }
+
+      const HEART_MSGS = [
+        "te quiero mucho",
+        "mándame una foto",
+        "eres todo lo que quiero",
+        "me encantas, ¿ya lo  he dicho?",
+        "espero que estés sonriendo",
+        "este viaje es tuyo, disfrútalo",
+        "ya quiero que me des un beso",
+        "¿comiste algo rico? cuéntame",
+        "ya quiero verte",
+      ];
+
+      let popupTimer = null;
+      function showHeartMessage() {
+        const existing = document.querySelector(".heart-popup");
+        if (existing) existing.remove();
+        if (popupTimer) clearTimeout(popupTimer);
+
+        const msg = HEART_MSGS[Math.floor(Math.random() * HEART_MSGS.length)];
+        const el = document.createElement("div");
+        el.className = "heart-popup";
+        el.textContent = msg;
+        document.body.appendChild(el);
+
+        popupTimer = setTimeout(() => {
+          el.classList.add("fade-out");
+          setTimeout(() => el.remove(), 300);
+        }, 2600);
+      }
+
+      function confirmReset() {
+        if (confirm("¿Reiniciar todo el progreso?")) {
+          checked = {};
+          saveState();
+          render();
+        }
+      }
+
+      function render() {
+        // Update tabs
+        document.getElementById("tab1").className =
+          "tab" + (activeDay === 1 ? " active" : "");
+        document.getElementById("tab2").className =
+          "tab" + (activeDay === 2 ? " active" : "");
+        document.getElementById("tab3").className =
+          "tab" + (activeDay === 3 ? " active" : "");
+
+        // ── LOLLAPALOOZA VIEW ──
+        if (activeDay === 3) {
+          document.getElementById("progressFill").style.width = "0%";
+          document.getElementById("progressText").textContent = "Lolla";
+
+          const lollaCheckHTML = LOLLA_DATA.checklist
+            .map((item) => {
+              const c = !!lollaChecklist[item.id];
+              return `<div class="lolla-checklist-item ${c ? "checked" : ""}" onclick="toggleLollaCheck('${item.id}')">
+              <button class="check-btn ${c ? "done" : ""}" onclick="event.stopPropagation(); toggleLollaCheck('${item.id}')" aria-label="Marcar">${c ? "✓" : ""}</button>
+              <span class="lolla-check-label">${item.label}</span>
+            </div>`;
+            })
+            .join("");
+
+          const lollaCustomHTML = (lollaCustomItems || [])
+            .map((item) => {
+              const c = !!lollaChecklist[item.id];
+              const safeLabel = (item.label || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/'/g, "&#39;");
+              return `<div class="lolla-checklist-item lolla-custom-item" onclick="toggleLollaCheck('${item.id}')">
+              <button class="check-btn ${c ? "done" : ""}" onclick="event.stopPropagation(); toggleLollaCheck('${item.id}')" aria-label="Marcar">${c ? "✓" : ""}</button>
+              <span class="lolla-check-label">${safeLabel}</span>
+              <button type="button" class="lolla-item-remove" onclick="event.stopPropagation(); removeLollaItem('${item.id}')" aria-label="Eliminar">×</button>
+            </div>`;
+            })
+            .join("");
+
+          const lollaNotesEscaped = (lollaNotes || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+          const lollaDaysHTML = LOLLA_DATA.days
+            .map(
+              (d) => `
+            <div class="lolla-day-card">
+              <h4>${d.name}</h4>
+              <p>${d.tip}</p>
+            </div>`,
+            )
+            .join("");
+
+          document.getElementById("dayContent").innerHTML = `
+    <div class="day-view">
+      <div class="love-note">
+        <span class="love-note-icon">💌</span>
+        <span class="love-note-text">Que la pases increíble en el Lolla. Cuidate y disfrutá cada show. 💗</span>
+      </div>
+      <div class="lolla-intro">${LOLLA_DATA.intro}</div>
+      <p style="margin: 0 16px 14px;">
+        <a class="reserve-btn" href="${LOLLA_DATA.officialUrl}" target="_blank" rel="noopener">🎵 Web oficial (lineup, mapa y horarios)</a>
+      </p>
+      <div class="lolla-section-title">Qué llevar</div>
+      <div class="lolla-checklist">
+        <div class="lolla-checklist-title">Checklist antes de salir</div>
+        <div class="lolla-checklist-list">${lollaCheckHTML}${lollaCustomHTML}</div>
+        <div class="lolla-add-row">
+          <input type="text" id="lollaNewItemInput" class="lolla-add-input" placeholder="Agregar ítem…" maxlength="120" onkeydown="if(event.key==='Enter'){event.preventDefault();addLollaItem();}" />
+          <button type="button" class="lolla-add-btn" onclick="addLollaItem()">Agregar</button>
+        </div>
+      </div>
+      <div class="lolla-section-title">Notas del Lolla</div>
+      <div class="lolla-notes-wrap">
+        <textarea class="lolla-notes-input" placeholder="Horarios, artistas que no te quieres perder, encuentros, etc." onchange="saveLollaNotes(this.value)" onblur="saveLollaNotes(this.value)" oninput="debouncedSaveLollaNotes(this)">${lollaNotesEscaped}</textarea>
+      </div>
+      <div class="lolla-section-title">Por día</div>
+      ${lollaDaysHTML}
+      <div style="height: 40px;"></div>
+    </div>`;
+          return;
+        }
+
+        // ── DÍA 1 y 2 ──
+        const day = TRIP_DATA.days.find((d) => d.id === activeDay);
+        if (!day) return;
+
+        // Progress
+        const total = day.stops.length;
+        const done = day.stops.filter((s) => checked[s.id]).length;
+        const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+        document.getElementById("progressFill").style.width = pct + "%";
+        document.getElementById("progressText").textContent =
+          done + " / " + total;
+
+        // Pick a love note based on day
+        const note =
+          TRIP_DATA.loveNotes[activeDay - 1] || TRIP_DATA.loveNotes[0];
+
+        // All done?
+        const wasAllDone = window._prevDone && window._prevDone[activeDay];
+        const allDone = done === total && total > 0;
+        if (allDone && !wasAllDone) {
+          window._prevDone = window._prevDone || {};
+          window._prevDone[activeDay] = true;
+          launchConfetti();
+        }
+        if (!allDone) {
+          window._prevDone = window._prevDone || {};
+          window._prevDone[activeDay] = false;
+        }
+
+        // Cards HTML
+        let cardsHTML = day.stops
+          .map((stop) => {
+            const isChecked = !!checked[stop.id];
+            const scheduleParts = [];
+            if (stop.bestTime) scheduleParts.push(`🕐 ${stop.bestTime}`);
+            if (stop.duration) scheduleParts.push(`⏱ ${stop.duration}`);
+            const scheduleHTML =
+              scheduleParts.length > 0
+                ? `<div class="card-schedule">${scheduleParts.map((s) => `<span>${s}</span>`).join("")}${stop.closed ? `<span class="closed-warn">⚠ ${stop.closed}</span>` : ""}</div>`
+                : "";
+            const reserveHTML =
+              stop.reserveUrl && stop.reserveLabel
+                ? `<a class="reserve-btn" href="${stop.reserveUrl}" target="_blank" rel="noopener">📅 ${stop.reserveLabel}</a>`
+                : "";
+            const noteVal = (notes[stop.id] || "")
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
+            return `
+    <div class="card ${isChecked ? "checked" : ""}" id="card-${stop.id}">
+      <div class="card-top">
+        <button class="check-btn ${isChecked ? "done" : ""}" onclick="toggleCheck('${stop.id}')" aria-label="Marcar ${stop.name}">
+          ${isChecked ? "✓" : ""}
+        </button>
+        <div class="card-info">
+          <div class="card-name">${stop.name}</div>
+          <div class="card-tip">${stop.tip}</div>
+          ${scheduleHTML}
+        </div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-meta">
+          ${renderMetroBadges(stop.transport)}
+          ${
+            stop.cost > 0
+              ? `<span class="cost-badge">${formatCLP(stop.cost)}</span>`
+              : `<span class="free-badge">Gratis ✓</span>`
+          }
+          ${reserveHTML}
+        </div>
+        <button class="maps-btn" onclick="openMaps('${stop.maps.replace(/'/g, "\\'")}')">
+          📍 Maps
+        </button>
+      </div>
+      <div class="card-notes-wrap">
+        <div class="card-notes-label">Anotar algo</div>
+        <textarea class="card-notes-input" placeholder="Nota…" onchange="saveNote('${stop.id}', this.value)" onblur="saveNote('${stop.id}', this.value)" oninput="debouncedSaveNote('${stop.id}', this)">${noteVal}</textarea>
+      </div>
+    </div>`;
+          })
+          .join("");
+
+        const allDoneHTML = allDone
+          ? `<div class="all-done visible">¡Lo lograste! Día ${activeDay} completado 🎉</div>`
+          : "";
+
+        const dayTip =
+          TRIP_DATA.dayTips && TRIP_DATA.dayTips[activeDay - 1]
+            ? TRIP_DATA.dayTips[activeDay - 1]
+            : "";
+        const dayTipHTML = dayTip
+          ? `<div class="day-tip"><span class="day-tip-icon">🌤</span><span>${dayTip}</span></div>`
+          : "";
+
+        const beforeLeavingHTML = `
+      <div class="before-leaving">
+        <div class="before-leaving-title">Antes de salir</div>
+        <div class="before-leaving-list">
+          ${BEFORE_LEAVING.map((item) => {
+            const c = !!beforeLeavingChecked[item.id];
+            return `<div class="before-leaving-item ${c ? "checked" : ""}" onclick="toggleBeforeLeaving('${item.id}')">
+            <button class="check-btn ${c ? "done" : ""}" onclick="event.stopPropagation(); toggleBeforeLeaving('${item.id}')" aria-label="Marcar ${item.label}">${c ? "✓" : ""}</button>
+            <span class="before-leaving-label">${item.label}</span>
+          </div>`;
+          }).join("")}
+        </div>
+      </div>`;
+
+        document.getElementById("dayContent").innerHTML = `
+    <div class="day-view">
+      <div class="love-note">
+        <span class="love-note-icon">💌</span>
+        <span class="love-note-text">${note}</span>
+      </div>
+      ${dayTipHTML}
+      ${beforeLeavingHTML}
+      ${allDoneHTML}
+      <div class="stops">${cardsHTML}</div>
+    </div>
+  `;
+      }
+
+      function openMaps(query) {
+        window.open(
+          "https://www.google.com/maps/search/" + encodeURIComponent(query),
+          "_blank",
+        );
+      }
+
+      // ── CONFETTI ──
+      function launchConfetti() {
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ["#c4677a", "#f5cbb8", "#5a8a6a"],
+          ticks: 300,
+        });
+      }
+
+      // Al salir de la página, guardar por si quedó algo pendiente en los textareas
+      window.addEventListener("beforeunload", () => {
+        if (_noteDebounce) clearTimeout(_noteDebounce);
+        if (_lollaNoteDebounce) clearTimeout(_lollaNoteDebounce);
+        const cardNotes = document.querySelectorAll(".card-notes-input");
+        cardNotes.forEach((ta) => {
+          const id = (ta.getAttribute("oninput") || "").match(/debouncedSaveNote\('([^']+)'/);
+          if (id) saveNote(id[1], ta.value);
+        });
+        const lollaTa = document.querySelector(".lolla-notes-input");
+        if (lollaTa) saveLollaNotes(lollaTa.value);
+        saveState();
+      });
+
+      // Init
+      loadState();
+      applyDarkMode();
+      const darkBtn = document.getElementById("darkToggle");
+      if (darkBtn) {
+        darkBtn.textContent = darkMode ? "☀️" : "🌙";
+        darkBtn.setAttribute(
+          "aria-label",
+          darkMode ? "Modo claro" : "Modo oscuro",
+        );
+      }
+      render();
+    </script>
+  </body>
+</html>
