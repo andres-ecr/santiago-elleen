@@ -1694,10 +1694,9 @@
       const HEART_MSGS = [
         "te quiero mucho",
         "mándame una foto",
-        "eres todo lo que quiero",
         "me encantas, ¿ya lo  he dicho?",
         "espero que estés sonriendo",
-        "este viaje es tuyo, disfrútalo",
+        "disfruta el viaje",
         "ya quiero que me des un beso",
         "¿comiste algo rico? cuéntame",
         "ya quiero verte",
@@ -1960,7 +1959,9 @@
         if (_lollaNoteDebounce) clearTimeout(_lollaNoteDebounce);
         const cardNotes = document.querySelectorAll(".card-notes-input");
         cardNotes.forEach((ta) => {
-          const id = (ta.getAttribute("oninput") || "").match(/debouncedSaveNote\('([^']+)'/);
+          const id = (ta.getAttribute("oninput") || "").match(
+            /debouncedSaveNote\('([^']+)'/,
+          );
           if (id) saveNote(id[1], ta.value);
         });
         const lollaTa = document.querySelector(".lolla-notes-input");
