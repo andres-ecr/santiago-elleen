@@ -968,6 +968,53 @@
         transform: scale(0.97);
       }
 
+      .lolla-day-tabs {
+        display: flex;
+        margin: 0 16px 12px;
+        background: rgba(255, 248, 244, 0.7);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 4px;
+        gap: 4px;
+      }
+
+      [data-theme="dark"] .lolla-day-tabs {
+        background: rgba(55, 42, 47, 0.6);
+      }
+
+      .lolla-day-tab {
+        flex: 1;
+        padding: 8px 6px;
+        border-radius: 10px;
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      .lolla-day-tab.active {
+        background: linear-gradient(
+          135deg,
+          rgba(196, 103, 122, 0.15) 0%,
+          rgba(245, 203, 184, 0.2) 100%
+        );
+        border: 1px solid var(--rose-border);
+        color: var(--rose);
+        font-weight: 500;
+      }
+
+      .lolla-day-panel {
+        display: none;
+      }
+
+      .lolla-day-panel.visible {
+        display: block;
+      }
+
       .lolla-notes-wrap {
         margin: 0 16px 16px;
       }
@@ -1455,14 +1502,16 @@
         },
       };
 
-      // State
+      // State (beforeLeavingChecked is per day: { 1: { "pre-1": true }, 2: {} })
       let activeDay = 1;
       let checked = {};
       let notes = {};
-      let beforeLeavingChecked = {};
-      let lollaChecklist = {};
+      let beforeLeavingChecked = { 1: {}, 2: {} };
+      // Lolla checklist per day: { "lolla-1": { "lolla-c1": true }, "lolla-2": {}, "lolla-3": {} }
+      let lollaChecklist = { "lolla-1": {}, "lolla-2": {}, "lolla-3": {} };
       let lollaCustomItems = [];
       let lollaNotes = "";
+      let activeLollaDay = "lolla-1";
       let darkMode = false;
 
       // Load from localStorage
@@ -1474,10 +1523,42 @@
             checked = data.checked || {};
             activeDay = data.activeDay || 1;
             notes = data.notes || {};
-            beforeLeavingChecked = data.beforeLeavingChecked || {};
-            lollaChecklist = data.lollaChecklist || {};
+            const raw = data.beforeLeavingChecked || {};
+            // Migrate flat format to per-day: { "pre-1": true } -> { 1: {...}, 2: {} }
+            if (raw && !raw[1] && !raw[2] && typeof raw === "object") {
+              beforeLeavingChecked = { 1: { ...raw }, 2: {} };
+            } else {
+              beforeLeavingChecked = { 1: raw[1] || {}, 2: raw[2] || {} };
+            }
+            const rawLolla = data.lollaChecklist || {};
+            if (
+              rawLolla &&
+              !rawLolla["lolla-1"] &&
+              !rawLolla["lolla-2"] &&
+              typeof rawLolla === "object"
+            ) {
+              lollaChecklist = {
+                "lolla-1": { ...rawLolla },
+                "lolla-2": {},
+                "lolla-3": {},
+              };
+            } else {
+              lollaChecklist = {
+                "lolla-1": rawLolla["lolla-1"] || {},
+                "lolla-2": rawLolla["lolla-2"] || {},
+                "lolla-3": rawLolla["lolla-3"] || {},
+              };
+            }
             lollaCustomItems = data.lollaCustomItems || [];
             lollaNotes = data.lollaNotes || "";
+            if (
+              data.activeLollaDay &&
+              (data.activeLollaDay === "lolla-1" ||
+                data.activeLollaDay === "lolla-2" ||
+                data.activeLollaDay === "lolla-3")
+            ) {
+              activeLollaDay = data.activeLollaDay;
+            }
           }
         } catch (e) {}
         try {
@@ -1497,6 +1578,7 @@
               lollaChecklist,
               lollaCustomItems,
               lollaNotes,
+              activeLollaDay,
             }),
           );
         } catch (e) {}
@@ -1505,10 +1587,28 @@
         } catch (e) {}
       }
 
-      function toggleLollaCheck(id) {
-        lollaChecklist[id] = !lollaChecklist[id];
+      function toggleLollaCheck(dayId, itemId) {
+        if (!lollaChecklist[dayId]) lollaChecklist[dayId] = {};
+        lollaChecklist[dayId][itemId] = !lollaChecklist[dayId][itemId];
         saveState();
-        render();
+        var itemEl = document.querySelector(
+          '.lolla-checklist-item[data-day-id="' +
+            dayId +
+            '"][data-item-id="' +
+            itemId +
+            '"]',
+        );
+        if (itemEl) {
+          var isChecked = !!lollaChecklist[dayId][itemId];
+          itemEl.classList.toggle("checked", isChecked);
+          var btn = itemEl.querySelector(".check-btn");
+          if (btn) {
+            btn.classList.toggle("done", isChecked);
+            btn.textContent = isChecked ? "✓" : "";
+          }
+        } else {
+          render();
+        }
       }
 
       function addLollaItem() {
@@ -1527,9 +1627,28 @@
 
       function removeLollaItem(id) {
         lollaCustomItems = lollaCustomItems.filter((it) => it.id !== id);
-        delete lollaChecklist[id];
+        LOLLA_DATA.days.forEach(function (d) {
+          if (lollaChecklist[d.id]) delete lollaChecklist[d.id][id];
+        });
         saveState();
         render();
+      }
+
+      function setLollaDay(dayId) {
+        activeLollaDay = dayId;
+        saveState();
+        document.querySelectorAll(".lolla-day-tab").forEach(function (el) {
+          el.classList.toggle(
+            "active",
+            el.getAttribute("data-day-id") === dayId,
+          );
+        });
+        document.querySelectorAll(".lolla-day-panel").forEach(function (el) {
+          el.classList.toggle(
+            "visible",
+            el.getAttribute("data-day-id") === dayId,
+          );
+        });
       }
 
       function saveLollaNotes(value) {
@@ -1556,9 +1675,25 @@
       }
 
       function toggleBeforeLeaving(id) {
-        beforeLeavingChecked[id] = !beforeLeavingChecked[id];
+        const dayKey = activeDay;
+        if (!beforeLeavingChecked[dayKey]) beforeLeavingChecked[dayKey] = {};
+        beforeLeavingChecked[dayKey][id] = !beforeLeavingChecked[dayKey][id];
         saveState();
-        render();
+        // Update only this item in the DOM to avoid flicker (no full render)
+        const itemEl = document.querySelector(
+          '.before-leaving-item[data-item-id="' + id + '"]',
+        );
+        if (itemEl) {
+          const isChecked = !!beforeLeavingChecked[dayKey][id];
+          itemEl.classList.toggle("checked", isChecked);
+          const btn = itemEl.querySelector(".check-btn");
+          if (btn) {
+            btn.classList.toggle("done", isChecked);
+            btn.textContent = isChecked ? "✓" : "";
+          }
+        } else {
+          render();
+        }
       }
 
       function saveNote(stopId, value) {
@@ -1668,7 +1803,56 @@
       function toggleCheck(id) {
         checked[id] = !checked[id];
         saveState();
-        render();
+        // Update card and progress in place to avoid flicker (no full render)
+        const cardEl = document.getElementById("card-" + id);
+        if (cardEl) {
+          const isChecked = !!checked[id];
+          cardEl.classList.toggle("checked", isChecked);
+          const btn = cardEl.querySelector(".check-btn");
+          if (btn) {
+            btn.classList.toggle("done", isChecked);
+            btn.textContent = isChecked ? "✓" : "";
+          }
+          const day = TRIP_DATA.days.find((d) => d.id === activeDay);
+          if (day) {
+            const total = day.stops.length;
+            const done = day.stops.filter((s) => checked[s.id]).length;
+            const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+            const fillEl = document.getElementById("progressFill");
+            const textEl = document.getElementById("progressText");
+            if (fillEl) fillEl.style.width = pct + "%";
+            if (textEl) textEl.textContent = done + " / " + total;
+            // All-done banner
+            const allDone = done === total && total > 0;
+            let banner = document.querySelector(".all-done");
+            if (allDone) {
+              if (!banner) {
+                banner = document.createElement("div");
+                banner.className = "all-done visible";
+                banner.textContent =
+                  "¡Lo lograste! Día " + activeDay + " completado 🎉";
+                const stopsEl = document.querySelector(".stops");
+                if (stopsEl && stopsEl.parentNode)
+                  stopsEl.parentNode.insertBefore(banner, stopsEl);
+              } else {
+                banner.classList.add("visible");
+                banner.textContent =
+                  "¡Lo lograste! Día " + activeDay + " completado 🎉";
+              }
+              if (!window._prevDone || !window._prevDone[activeDay]) {
+                window._prevDone = window._prevDone || {};
+                window._prevDone[activeDay] = true;
+                if (typeof launchConfetti === "function") launchConfetti();
+              }
+            } else {
+              if (banner) banner.classList.remove("visible");
+              window._prevDone = window._prevDone || {};
+              window._prevDone[activeDay] = false;
+            }
+          }
+        } else {
+          render();
+        }
       }
 
       function setDay(d) {
@@ -1694,12 +1878,13 @@
       const HEART_MSGS = [
         "te quiero mucho",
         "mándame una foto",
-        "me encantas, ¿ya lo  he dicho?",
+        "me encantas",
         "espero que estés sonriendo",
         "disfruta el viaje",
-        "ya quiero que me des un beso",
+        "ya quiero darte un beso",
         "¿comiste algo rico? cuéntame",
         "ya quiero verte",
+        "sanwi",
       ];
 
       let popupTimer = null;
@@ -1742,29 +1927,51 @@
           document.getElementById("progressFill").style.width = "0%";
           document.getElementById("progressText").textContent = "Lolla";
 
-          const lollaCheckHTML = LOLLA_DATA.checklist
-            .map((item) => {
-              const c = !!lollaChecklist[item.id];
-              return `<div class="lolla-checklist-item ${c ? "checked" : ""}" onclick="toggleLollaCheck('${item.id}')">
-              <button class="check-btn ${c ? "done" : ""}" onclick="event.stopPropagation(); toggleLollaCheck('${item.id}')" aria-label="Marcar">${c ? "✓" : ""}</button>
+          function lollaDayChecklistHTML(dayId) {
+            const checkedForDay = lollaChecklist[dayId] || {};
+            const itemsHTML = LOLLA_DATA.checklist
+              .map((item) => {
+                const c = !!checkedForDay[item.id];
+                return `<div class="lolla-checklist-item ${c ? "checked" : ""}" data-day-id="${dayId}" data-item-id="${item.id}" onclick="toggleLollaCheck('${dayId}', '${item.id}')">
+              <button class="check-btn ${c ? "done" : ""}" onclick="event.stopPropagation(); toggleLollaCheck('${dayId}', '${item.id}')" aria-label="Marcar">${c ? "✓" : ""}</button>
               <span class="lolla-check-label">${item.label}</span>
             </div>`;
-            })
-            .join("");
-
-          const lollaCustomHTML = (lollaCustomItems || [])
-            .map((item) => {
-              const c = !!lollaChecklist[item.id];
-              const safeLabel = (item.label || "")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/'/g, "&#39;");
-              return `<div class="lolla-checklist-item lolla-custom-item" onclick="toggleLollaCheck('${item.id}')">
-              <button class="check-btn ${c ? "done" : ""}" onclick="event.stopPropagation(); toggleLollaCheck('${item.id}')" aria-label="Marcar">${c ? "✓" : ""}</button>
+              })
+              .join("");
+            const customHTML = (lollaCustomItems || [])
+              .map((item) => {
+                const c = !!checkedForDay[item.id];
+                const safeLabel = (item.label || "")
+                  .replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")
+                  .replace(/'/g, "&#39;");
+                return `<div class="lolla-checklist-item lolla-custom-item" data-day-id="${dayId}" data-item-id="${item.id}" onclick="toggleLollaCheck('${dayId}', '${item.id}')">
+              <button class="check-btn ${c ? "done" : ""}" onclick="event.stopPropagation(); toggleLollaCheck('${dayId}', '${item.id}')" aria-label="Marcar">${c ? "✓" : ""}</button>
               <span class="lolla-check-label">${safeLabel}</span>
               <button type="button" class="lolla-item-remove" onclick="event.stopPropagation(); removeLollaItem('${item.id}')" aria-label="Eliminar">×</button>
             </div>`;
+              })
+              .join("");
+            return itemsHTML + customHTML;
+          }
+
+          const lollaTabsHTML = LOLLA_DATA.days
+            .map((d) => {
+              const isActive = activeLollaDay === d.id;
+              return `<button type="button" class="lolla-day-tab ${isActive ? "active" : ""}" data-day-id="${d.id}" onclick="setLollaDay('${d.id}')">${d.name}</button>`;
+            })
+            .join("");
+
+          const lollaPanelsHTML = LOLLA_DATA.days
+            .map((d) => {
+              const isVisible = activeLollaDay === d.id;
+              return `<div class="lolla-day-panel ${isVisible ? "visible" : ""}" data-day-id="${d.id}">
+        <div class="lolla-checklist">
+          <div class="lolla-checklist-title">Antes de salir</div>
+          <div class="lolla-checklist-list">${lollaDayChecklistHTML(d.id)}</div>
+        </div>
+      </div>`;
             })
             .join("");
 
@@ -1794,10 +2001,10 @@
         <a class="reserve-btn" href="${LOLLA_DATA.officialUrl}" target="_blank" rel="noopener">🎵 Web oficial (lineup, mapa y horarios)</a>
       </p>
       <div class="lolla-section-title">Qué llevar</div>
-      <div class="lolla-checklist">
-        <div class="lolla-checklist-title">Checklist antes de salir</div>
-        <div class="lolla-checklist-list">${lollaCheckHTML}${lollaCustomHTML}</div>
-        <div class="lolla-add-row">
+      <div class="lolla-day-tabs" role="tablist">${lollaTabsHTML}</div>
+      ${lollaPanelsHTML}
+      <div class="lolla-checklist" style="margin-top: 0;">
+        <div class="lolla-add-row" style="border-top: 1px solid var(--border); padding-top: 12px; margin-top: 0;">
           <input type="text" id="lollaNewItemInput" class="lolla-add-input" placeholder="Agregar ítem…" maxlength="120" onkeydown="if(event.key==='Enter'){event.preventDefault();addLollaItem();}" />
           <button type="button" class="lolla-add-btn" onclick="addLollaItem()">Agregar</button>
         </div>
@@ -1907,13 +2114,14 @@
           ? `<div class="day-tip"><span class="day-tip-icon">🌤</span><span>${dayTip}</span></div>`
           : "";
 
+        const checkedForDay = beforeLeavingChecked[day.id] || {};
         const beforeLeavingHTML = `
       <div class="before-leaving">
         <div class="before-leaving-title">Antes de salir</div>
         <div class="before-leaving-list">
           ${BEFORE_LEAVING.map((item) => {
-            const c = !!beforeLeavingChecked[item.id];
-            return `<div class="before-leaving-item ${c ? "checked" : ""}" onclick="toggleBeforeLeaving('${item.id}')">
+            const c = !!checkedForDay[item.id];
+            return `<div class="before-leaving-item ${c ? "checked" : ""}" data-item-id="${item.id}" onclick="toggleBeforeLeaving('${item.id}')">
             <button class="check-btn ${c ? "done" : ""}" onclick="event.stopPropagation(); toggleBeforeLeaving('${item.id}')" aria-label="Marcar ${item.label}">${c ? "✓" : ""}</button>
             <span class="before-leaving-label">${item.label}</span>
           </div>`;
